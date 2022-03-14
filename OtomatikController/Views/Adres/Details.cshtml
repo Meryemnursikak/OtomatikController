@@ -1,0 +1,42 @@
+﻿@model OtomatikController.Controllers.Adres
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Adres</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Adres1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adres1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sehir)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sehir)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kisiler.Isim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kisiler.Isim)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

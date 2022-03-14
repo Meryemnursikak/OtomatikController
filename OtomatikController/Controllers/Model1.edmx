@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TestModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adres">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KisiId" Type="int" Nullable="false" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sehir" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Kisiler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Isim" Type="nvarchar" MaxLength="50" />
+          <Property Name="Soyisim" Type="nvarchar" MaxLength="50" />
+          <Property Name="Adres" Type="int" />
+          <Property Name="Yas" Type="int" />
+        </EntityType>
+        <Association Name="FK_Adres_Kisiler">
+          <End Role="Kisiler" Type="Self.Kisiler" Multiplicity="1" />
+          <End Role="Adres" Type="Self.Adres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kisiler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adres">
+              <PropertyRef Name="KisiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestModelStoreContainer">
+          <EntitySet Name="Adres" EntityType="Self.Adres" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kisiler" EntityType="Self.Kisiler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Adres_Kisiler" Association="Self.FK_Adres_Kisiler">
+            <End Role="Kisiler" EntitySet="Kisiler" />
+            <End Role="Adres" EntitySet="Adres" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adres">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KisiId" Type="Int32" Nullable="false" />
+          <Property Name="Adres1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sehir" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Kisiler" Relationship="Self.FK_Adres_Kisiler" FromRole="Adres" ToRole="Kisiler" />
+        </EntityType>
+        <EntityType Name="Kisiler">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Isim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Soyisim" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="Int32" />
+          <Property Name="Yas" Type="Int32" />
+          <NavigationProperty Name="Adres1" Relationship="Self.FK_Adres_Kisiler" FromRole="Kisiler" ToRole="Adres" />
+        </EntityType>
+        <Association Name="FK_Adres_Kisiler">
+          <End Role="Kisiler" Type="Self.Kisiler" Multiplicity="1" />
+          <End Role="Adres" Type="Self.Adres" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kisiler">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Adres">
+              <PropertyRef Name="KisiId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TestEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adres" EntityType="Self.Adres" />
+          <EntitySet Name="Kisiler" EntityType="Self.Kisiler" />
+          <AssociationSet Name="FK_Adres_Kisiler" Association="Self.FK_Adres_Kisiler">
+            <End Role="Kisiler" EntitySet="Kisiler" />
+            <End Role="Adres" EntitySet="Adres" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestModelStoreContainer" CdmEntityContainer="TestEntities">
+          <EntitySetMapping Name="Adres">
+            <EntityTypeMapping TypeName="TestModel.Adres">
+              <MappingFragment StoreEntitySet="Adres">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="KisiId" ColumnName="KisiId" />
+                <ScalarProperty Name="Adres1" ColumnName="Adres" />
+                <ScalarProperty Name="Sehir" ColumnName="Sehir" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kisiler">
+            <EntityTypeMapping TypeName="TestModel.Kisiler">
+              <MappingFragment StoreEntitySet="Kisiler">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Isim" ColumnName="Isim" />
+                <ScalarProperty Name="Soyisim" ColumnName="Soyisim" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Yas" ColumnName="Yas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
